@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: react-front-end
+  labels:
+    app: react-front-end
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: react-front-end
+  template:
+    metadata:
+      labels:
+        app: react-front-end
+    spec:
+      containers:
+      - name: react-front-end
+        image: prathod1995/react-frontend-01
+        ports:
+        - containerPort: 3000
+        env:
+        - name: react-configmap        
+          valueFrom:
+            configMapKeyRef:
+              name: react-configmap
+              key: backend_url
